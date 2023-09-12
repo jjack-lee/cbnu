@@ -1,0 +1,51 @@
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+<script>
+    function make(){
+        fetch("http://127.0.0.1:5000/makeKmeans").then((response) =>
+           $('#pltIFrame').attr('src', $('#pltIFrame').attr('src'))
+        );
+    }
+
+    function setP() {
+        let url = "http://127.0.0.1:5000/setP?init_count=" + $("#init_count").val() + "&clusters=" + $("#clusters").val();
+        fetch(url).then((response) =>
+            make()
+        );
+    }
+
+    function setData() {
+        let url = "http://127.0.0.1:5000/setData?x_value=" + $("#x_value").val() + "&y_value=" + $("#y_value").val();
+        fetch(url).then((response) =>
+          make()
+        );
+    }
+
+</script>
+
+<table>
+    <tr>
+        <td><label>실행 횟수</label> </td>
+        <td><input type="text" id="init_count" value="10"> </input></td>
+        <td><label>클러스터 수</label> 
+        <td><input type="text" id="clusters" value="3"> </input> </td>
+        <td><button onclick="setP()">설정</button></td>
+    </tr>
+    <tr>
+        <td><label> X 값 </label> </td>
+        <td><input type="text" id="x_value"> </input></td>
+        <td><label> Y 값 </label>
+        <td><input type="text" id="y_value"> </input> </td>
+        <td><button onclick="setData()">설정</button></td>
+    </tr>
+</table>
+
+<br>
+<!-- 
+<button onclick="make()">만들기</button>
+
+<br><br> -->
+
+<iframe id="pltIFrame" src="http://127.0.0.1:5000/makeKmeans" width="500" height="300"></iframe>
+
